@@ -1,24 +1,16 @@
 import spacy.displacy
-from analizador.analizador_linguistico import AnalizadorLinguistico
+from pathlib import Path
+
 
 class VisualizadorDependencias:
-    def __init__(self, analizador: AnalizadorLinguistico):
+    def __init__(self, analizador):
         self._analizador = analizador
 
-    """
-    Metodo que muestra visualmente las dependencias sintácticas usando spaCy.
-    Parametros: texto:String
-    Delvueve: Imprimir Informacion: void
-    """
-    def mostrar_dependencias(self, texto):
+    def guardar_dependencias_html(self, texto: str, archivo_salida="dependencias.html"):
+        """Genera un archivo HTML en lugar de bloquear el servidor."""
         doc = self._analizador.analizar(texto)
-        spacy.displacy.serve(doc, style="dep")
+        html = spacy.displacy.render(doc, style="dep", page=True)
 
-    """Desde aqui, todos son metodos get y set de los atributos"""
-    @property
-    def analizador(self):
-        return self._analizador
-
-    @analizador.setter
-    def analizador(self, analizador):
-        self._analizador = analizador
+        output_path = Path(archivo_salida)
+        output_path.write_text(html, encoding="utf-8")
+        print(f"Visualización guardada en: {output_path.absolute()}")

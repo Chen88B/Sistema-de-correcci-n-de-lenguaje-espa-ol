@@ -1,11 +1,21 @@
 class TokenInfo:
-    def __init__(self, texto,base,categoria,depedencia,cabeza,morfologicos):
-        self._texto = texto
-        self._base = base
-        self._categoria = categoria
-        self._depedencia = depedencia
-        self._cabeza = cabeza
-        self._morfologicos = morfologicos
+    def __init__(self, texto,base,categoria,depedencia,cabeza,cabeza_indice,morfologicos,etiqueta,posicion,idx_inicio, idx_final,forma,es_stop,es_numero,es_email,es_url):
+        self._texto = texto # Forma exacta del token
+        self._base = base # Lemma, es decir, la forma basica de un palabra, infinitivo
+        self._categoria = categoria #Categoria gramatica, NOUN=Sustantivos, VERB=verbo, ADJ=Adjectivo y etc
+        self._depedencia = depedencia # Relacion sintacticas
+        self._cabeza = cabeza #Palabra que depende este palabra
+        self._cabeza_indice = cabeza_indice #Indice de la cabeza
+        self._morfologicos = morfologicos #Diccionario que nos dice la tiempo, genero, numero, modo y etc
+        self._etiqueta = etiqueta #Categoria especifica, tiempo verbal, genero, caso y etc
+        self._posicion = posicion #Indice de token
+        self._idx_inicio = idx_inicio # Indice del caracter inicial (ej: 0)
+        self._idx_final = idx_final # Indice del caracter final (ej: 5)
+        self._forma = forma #Patrones de forma de un token
+        self._es_stop = es_stop #Si es palabra vacia como de, la, que, para y etc
+        self._es_numero = es_numero #Si es un numero
+        self._es_email = es_email #Si es un email
+        self._es_url = es_url #Si es un url
 
     """   
    Metodo para regresa la TokenInfor en un forma mas sencilla de entender
@@ -13,7 +23,11 @@ class TokenInfo:
    Devuelve:String
    """
     def representar(self):
-        return f"TokenInfo(texto={self._texto}, categoria={self._categoria}, cabeza={self._cabeza})"
+        return (
+            f"TokenInfo(texto='{self._texto}', base='{self._base}', cat='{self._categoria}', "
+            f"dep='{self._depedencia}', cabeza='{self._cabeza}', pos={self._posicion})"
+            f"indices=[{self._idx_inicio}:{self._idx_final}])"
+        )
 
     """Desde aqui, todos son metodos get y set de los atributos"""
     @property
@@ -40,26 +54,42 @@ class TokenInfo:
     def morfologicos(self):
         return self._morfologicos
 
-    @texto.setter
-    def texto(self,texto):
-        self._texto = texto
+    @property
+    def etiqueta(self):
+        return self._etiqueta
 
-    @base.setter
-    def base(self,base):
-        self._base = base
+    @property
+    def posicion(self):
+        return self._posicion
 
-    @categoria.setter
-    def categoria(self,categoria):
-        self._categoria = categoria
+    @property
+    def forma(self):
+        return self._forma
 
-    @depedencia.setter
-    def depedencia(self,depedencia):
-        self._depedencia = depedencia
+    @property
+    def es_stop(self):
+        return self._es_stop
 
-    @cabeza.setter
-    def cabeza(self,cabeza):
-        self._cabeza = cabeza
+    @property
+    def es_numero(self):
+        return self._es_numero
 
-    @morfologicos.setter
-    def morfologicos(self,morfologicos):
-        self._morfologicos = morfologicos
+    @property
+    def es_email(self):
+        return self._es_email
+
+    @property
+    def es_url(self):
+        return self._es_url
+
+    @property
+    def cabeza_indice(self):
+        return self._cabeza_indice
+
+    @property
+    def idx_inicio(self):
+        return self._idx_inicio
+
+    @property
+    def idx_final(self):
+        return self._idx_final
