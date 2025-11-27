@@ -175,7 +175,7 @@ class CorrectorApp(ctk.CTk):
     def finalizar_carga(self, modo_lt):
         self.textbox.configure(state="normal")
         self.textbox.delete("0.0", "end")
-        self.textbox.insert("0.0", "las casa rojas comen mucho. tu sabes el porque.")
+        self.textbox.insert("0.0", "las casa rojas comen mucho. tu sabes el porque es mierda.")
 
         self.btn_analizar.configure(state="normal")
         self.status_label.configure(text=f"Motores Listos | LT: {modo_lt}")

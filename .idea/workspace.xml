@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96db4136-1ac9-44c4-9e7b-53e202f74896" name="Changes" comment="Cama">
-      <change afterPath="$PROJECT_DIR$/main_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reglas/grupo_estilo_redaccion/repeticion_innecesaria_de_palabra.py" beforeDir="false" afterPath="$PROJECT_DIR$/reglas/grupo_estilo_redaccion/repeticion_innecesaria_de_palabra.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reglas/grupo_gramatica/concordancia_de_determinante_y_sustantivo.py" beforeDir="false" afterPath="$PROJECT_DIR$/reglas/grupo_gramatica/concordancia_de_determinante_y_sustantivo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reglas/grupo_gramatica/concordancia_entre_sustantivo_adjetivo.py" beforeDir="false" afterPath="$PROJECT_DIR$/reglas/grupo_gramatica/concordancia_entre_sustantivo_adjetivo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reglas/grupo_ortografia/tilde_en_monosilaba.py" beforeDir="false" afterPath="$PROJECT_DIR$/reglas/grupo_ortografia/tilde_en_monosilaba.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reglas/grupo_semantica/palabra_prohibida.py" beforeDir="false" afterPath="$PROJECT_DIR$/reglas/grupo_semantica/palabra_prohibida.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reglas/grupo_sintaxis/oracion_sin_verbo_principal.py" beforeDir="false" afterPath="$PROJECT_DIR$/reglas/grupo_sintaxis/oracion_sin_verbo_principal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reglas/grupo_sintaxis/redundancia_de_preposicion.py" beforeDir="false" afterPath="$PROJECT_DIR$/reglas/grupo_sintaxis/redundancia_de_preposicion.py" afterDir="false" />
-    </list>
+    <list default="true" id="96db4136-1ac9-44c4-9e7b-53e202f74896" name="Changes" comment="Cama" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,26 +28,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.extractor_de_caracteristicas.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.main2.executor": "Run",
-    "Python.main_gui.executor": "Run",
-    "Python.probar (1).executor": "Run",
-    "Python.probar.executor": "Run",
-    "Python.probarintegrador.executor": "Run",
-    "Python.prueba.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "A:/Python/Proyecto y practicas/Sistema de correcion de lenguaje",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.extractor_de_caracteristicas.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_gui.executor&quot;: &quot;Run&quot;,
+    &quot;Python.probar (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.probar.executor&quot;: &quot;Run&quot;,
+    &quot;Python.probarintegrador.executor&quot;: &quot;Run&quot;,
+    &quot;Python.prueba.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;A:/Python/Proyecto y practicas/Sistema de correcion de lenguaje&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="A:\Python\Proyecto y practicas\Sistema de correcion de lenguaje\reglas\grupo_semantica" />
