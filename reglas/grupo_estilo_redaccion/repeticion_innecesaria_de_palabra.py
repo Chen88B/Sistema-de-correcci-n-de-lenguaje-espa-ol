@@ -2,7 +2,7 @@ from reglas.regla_base import ReglaBase
 from datos.error import Error
 class RepeticionInnecesariaDePalabra(ReglaBase):
     def __init__(self):
-        super().__init__(nombre="Repetición innecesaria de palabra",descripcion="Detecta si la misma palabra aparece repetida consecutivamente sin necesidad.",prioridad=40)
+        super().__init__(nombre="Repetición innecesaria de palabra",descripcion="Detecta si la misma palabra aparece repetida consecutivamente sin necesidad.",prioridad=95)
 
     def aplicar(self, tokens_info):
         errores = []
@@ -11,8 +11,17 @@ class RepeticionInnecesariaDePalabra(ReglaBase):
             actual = tokens_info[i]
             siguiente = tokens_info[i + 1]
 
-            # Ignoramos si son signos de puntuación (opcional, pero recomendado)
-            if actual.categoria == "PUNCT":
+            # 1. Ignorar Puntuación (PUNCT) y Símbolos (SYM)
+            # Esto evita detectar "..." o "***" o "???" como errores de repetición.
+            if actual.categoria in ("PUNCT", "SYM"):
+                continue
+
+            # 2. Ignorar explícitamente asteriscos (por si SpaCy los marca como 'X' u 'Other')
+            if "*" in actual.texto:
+                continue
+
+            # 3. Ignorar números (opcional, por si repiten "20 20")
+            if actual.es_numero:
                 continue
 
             # Normalizamos para comparar

@@ -6,7 +6,7 @@ class SinVerbolPrincipal(ReglaBase):
         super().__init__(
             nombre="Oración sin verbo principal",
             descripcion="Detecta si la oración carece por completo de un verbo principal.",
-            prioridad=100
+            prioridad=10
         )
 
     def aplicar(self, tokens_info):

@@ -1,90 +1,134 @@
 from reglas.regla_base import ReglaBase
 from datos.error import Error
+
+
 class TildeMonosilaba(ReglaBase):
     def __init__(self):
-        super().__init__(nombre="Tilde en monosílabos",descripcion="Detecta usos incorrectos de la tilde diacrítica en palabras monosílabas.",prioridad=25 )
+        super().__init__(
+            nombre="Tilde en monosílabos",
+            descripcion="Detecta usos incorrectos de la tilde diacrítica analizando el contexto.",
+            prioridad=30
+        )
 
     def aplicar(self, tokens_info):
         errores = []
+        cantidad = len(tokens_info)
 
-        for token in tokens_info:
+        for i, token in enumerate(tokens_info):
             texto_original = token.texto
             palabra_lower = token.texto.lower()
-            categoria = token.categoria  # DET, PRON, ADV, VERB, etc.
+            categoria = token.categoria
 
-            correccion = None
+            prev_token = tokens_info[i - 1] if i > 0 else None
+            next_token = tokens_info[i + 1] if i < cantidad - 1 else None
+
+            correccion_base = None  # Guardamos la palabra en minúscula (tú, el, mí...)
             mensaje = ""
 
-            # Analizamos caso por caso usando la lógica gramatical
+            # --- 1. CASO: TU / TÚ ---
+            if palabra_lower in ["tu", "tú"]:
+                es_pronombre = False
+                if next_token and next_token.categoria in ["VERB", "AUX"]:
+                    es_pronombre = True
+                elif categoria == "PRON":
+                    es_pronombre = True
 
-            # --- CASO: EL / ÉL ---
-            if palabra_lower in ["el", "él"]:
-                # "él" es PRONOMBRE (él corre), "el" es DETERMINANTE (el coche)
-                if categoria == "PRON" and texto_original != "él":
-                    correccion = "él"
-                    mensaje = "Como pronombre personal, debe llevar tilde."
-                elif categoria == "DET" and texto_original == "él":
-                    correccion = "el"
-                    mensaje = "Como artículo, no debe llevar tilde."
+                # Decidimos qué debería ser (lógica pura, sin mirar mayúsculas aún)
+                if es_pronombre:
+                    correccion_base = "tú"
+                    mensaje = "Va seguido de un verbo, funciona como sujeto."
+                else:
+                    if next_token and next_token.categoria in ["NOUN", "PROPN"]:
+                        correccion_base = "tu"
+                        mensaje = "Va seguido de un sustantivo, es posesivo."
 
-            # --- CASO: TU / TÚ ---
-            elif palabra_lower in ["tu", "tú"]:
-                # "tú" es PRONOMBRE (tú eres), "tu" es DETERMINANTE (tu casa)
-                if categoria == "PRON" and texto_original != "tú":
-                    correccion = "tú"
-                    mensaje = "Como pronombre personal, debe llevar tilde."
-                elif categoria == "DET" and texto_original == "tú":
-                    correccion = "tu"
-                    mensaje = "Como posesivo, no debe llevar tilde."
+            # --- 2. CASO: EL / ÉL ---
+            elif palabra_lower in ["el", "él"]:
+                es_pronombre = False
+                if next_token and next_token.categoria in ["VERB", "AUX"]:
+                    es_pronombre = True
+                elif categoria == "PRON":
+                    es_pronombre = True
 
-            # --- CASO: MI / MÍ ---
+                if es_pronombre:
+                    correccion_base = "él"
+                    mensaje = "Funciona como pronombre personal."
+                else:
+                    if next_token and next_token.categoria == "NOUN":
+                        correccion_base = "el"
+                        mensaje = "Funciona como artículo determinado."
+
+            # --- 3. CASO: MI / MÍ ---
             elif palabra_lower in ["mi", "mí"]:
-                # "mí" es PRONOMBRE (para mí), "mi" es DETERMINANTE (mi gato)
-                if categoria == "PRON" and texto_original != "mí":
-                    correccion = "mí"
-                    mensaje = "Como pronombre personal, debe llevar tilde."
-                elif categoria == "DET" and texto_original == "mí":
-                    correccion = "mi"
-                    mensaje = "Como posesivo, no debe llevar tilde."
+                lleva_tilde = False
+                if prev_token and prev_token.categoria == "ADP":
+                    lleva_tilde = True
+                elif next_token and next_token.categoria == "PUNCT":
+                    lleva_tilde = True
 
-            # --- CASO: SI / SÍ ---
+                if lleva_tilde:
+                    correccion_base = "mí"
+                    mensaje = "Después de preposición es pronombre."
+                else:
+                    if next_token and next_token.categoria == "NOUN":
+                        correccion_base = "mi"
+                        mensaje = "Acompaña a un sustantivo, es posesivo."
+
+            # --- 4. CASO: TE / TÉ ---
+            elif palabra_lower in ["te", "té"]:
+                es_bebida = False
+                if prev_token and prev_token.categoria in ["DET", "POS"]:
+                    es_bebida = True
+                elif categoria == "NOUN":
+                    es_bebida = True
+
+                if es_bebida:
+                    correccion_base = "té"
+                    mensaje = "Se refiere a la bebida."
+                else:
+                    correccion_base = "te"
+                    mensaje = "Es pronombre átono."
+
+            # --- 5. CASO: SI / SÍ ---
             elif palabra_lower in ["si", "sí"]:
-                # "sí" es ADVERBIO/PRON (dijo que sí), "si" es CONJUNCION (si llueve)
-                # Nota: SCONJ es conjunción subordinante
-                if categoria in ["ADV", "PRON"] and texto_original != "sí":
-                    correccion = "sí"
-                    mensaje = "Como afirmación o pronombre, debe llevar tilde."
-                elif categoria == "SCONJ" and texto_original == "sí":
-                    correccion = "si"
-                    mensaje = "Como condicional, no debe llevar tilde."
+                lleva_tilde = False
+                if categoria in ["ADV", "PRON"]:
+                    lleva_tilde = True
+                elif next_token and next_token.texto == ",":
+                    lleva_tilde = True
 
-            # --- CASO: SE / SÉ ---
-            elif palabra_lower in ["se", "sé"]:
-                # "sé" es VERBO (ser/saber), "se" es PRONOMBRE
-                if categoria == "VERB" and texto_original != "sé":
-                    correccion = "sé"
-                    mensaje = "Del verbo saber o ser, debe llevar tilde."
-                elif categoria == "PRON" and texto_original == "sé":
-                    correccion = "se"
-                    mensaje = "Como pronombre, no debe llevar tilde."
+                if lleva_tilde:
+                    correccion_base = "sí"
+                    mensaje = "Es afirmación."
+                else:
+                    if categoria == "SCONJ":
+                        correccion_base = "si"
+                        mensaje = "Es condicional."
 
-            # --- GENERAR ERROR SI HAY CORRECCIÓN ---
-            if correccion:
-                # Respetar mayúscula inicial si la tenía
+            if correccion_base:
+                correccion_final = correccion_base
+
+                # 1. Aplicar Mayúscula si el original la tenía
                 if token.texto[0].isupper():
-                    correccion = correccion.capitalize()
+                    correccion_final = correccion_base.capitalize()
 
+                # 2. VERIFICACIÓN FINAL CRUCIAL:
+                # Si la palabra calculada es IDÉNTICA a la original, NO HACEMOS NADA.
+                if correccion_final == token.texto:
+                    continue  # Saltamos al siguiente token, no hay error.
+
+                # Si llegamos aquí, es porque son diferentes (ej: "Tu" != "Tú")
                 errores.append(Error(
                     tipo="Tilde_diacritica",
-                    mensaje=f"Uso incorrecto de tilde en '{token.texto}'. {mensaje}",
+                    mensaje=f"Uso de tilde: {mensaje}",
                     token_inicia=token.posicion,
                     token_final=token.posicion,
                     prioridad=self._prioridad,
-                    sugerencia=f"Cambiar a '{correccion}'.",
+                    sugerencia=f"Cambiar a '{correccion_final}'.",
                     origen="Regla manual",
                     idx_char_inicio=token.idx_inicio,
                     idx_char_final=token.idx_final,
-                    correccion_automatica=correccion
+                    correccion_automatica=correccion_final
                 ))
 
         return errores

@@ -6,7 +6,7 @@ class ConcordanciaEntreSustantivoAdjectivo(ReglaBase):
         super().__init__(
             nombre="Concordancia Sustantivo–Adjetivo",
             descripcion="Detecta discordancias de género o número entre un sustantivo y un adjetivo que lo modifica.",
-            prioridad=75
+            prioridad=80
         )
 
     def aplicar(self, tokens_info):

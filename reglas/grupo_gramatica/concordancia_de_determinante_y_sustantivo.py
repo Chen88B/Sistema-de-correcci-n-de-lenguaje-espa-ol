@@ -2,7 +2,7 @@ from reglas.regla_base import ReglaBase
 from datos.error import Error
 class ConcordanciaDeDeterminanteYSustantivo(ReglaBase):
     def __init__(self):
-        super().__init__(nombre="Concordancia determinante-sustantivo",descripcion="Detecta discordancias de género o número entre un determinante y el sustantivo que modifica.",prioridad=80)
+        super().__init__(nombre="Concordancia determinante-sustantivo",descripcion="Detecta discordancias de género o número entre un determinante y el sustantivo que modifica.",prioridad=85)
 
     def aplicar(self, tokens_info):
         errores = []

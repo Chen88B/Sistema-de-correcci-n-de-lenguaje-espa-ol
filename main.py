@@ -166,7 +166,7 @@ def main():
             todos_errores_lectura = sorted(todos_errores, key=lambda x: x.idx_char_inicio)
             for err in todos_errores_lectura:
                 print(f"- [{err.tipo}] {err.mensaje}")
-            return
+
 
         print("\nRESULTADO:")
         print(f"'{texto_final}'")

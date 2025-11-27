@@ -6,7 +6,7 @@ class PalabraProhibida(ReglaBase):
             palabras_prohibidas = {"puta", "mierda", "joder", "chingar"}
 
         self._palabras = set(palabras_prohibidas)
-        super().__init__(nombre="Palabra prohibida",descripcion="Detecta palabras ofensivas o no permitidas en el texto.",prioridad=70)
+        super().__init__(nombre="Palabra prohibida",descripcion="Detecta palabras ofensivas o no permitidas en el texto.",prioridad=100)
 
     def aplicar(self, tokens_info):
         errores = []

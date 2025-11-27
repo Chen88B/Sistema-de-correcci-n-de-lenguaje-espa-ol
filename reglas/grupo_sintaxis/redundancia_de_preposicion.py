@@ -2,7 +2,7 @@ from reglas.regla_base import ReglaBase
 from datos.error import Error
 class RedundanciaDepreposicion(ReglaBase):
     def __init__(self):
-        super().__init__(nombre="Redundancia de preposición",descripcion="Detecta la repetición o uso innecesario de dos preposiciones consecutivas.",prioridad=45)
+        super().__init__(nombre="Redundancia de preposición",descripcion="Detecta la repetición o uso innecesario de dos preposiciones consecutivas.",prioridad=95)
         # Conjuntos de combinaciones redundantes
         self.combinaciones_invalidas = {
             ("a", "a"),
